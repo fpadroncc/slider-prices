@@ -20,9 +20,9 @@
 }
 
 .left_bullet {
-    right: 0;
+  left: 0;
 }
 
 .right_bullet {
-    left: 0;
+  left: 0;
 }
