@@ -1,22 +1,22 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import Slider from "./Slider";
 import SliderInput from "./SliderInput";
 import "./slider-container.css";
 
 export default function SliderContainer() {
-  const testValueLeft = 20;
-  const testValueRight = 80;
+  const min = 0;
+  const max = 100;
 
   return (
     <div className="container">
       <div className="default_box label_left">
-        <SliderInput value={testValueLeft} />
+        <SliderInput value={min} />
       </div>
       <div className="default_box slide">
-        <Slider bulletLeft={testValueLeft} bulletRight={testValueRight} />
+        <Slider min={min} max={max} />
       </div>
       <div className="default_box label_right">
-        <SliderInput value={testValueRight} />
+        <SliderInput value={max} />
       </div>
     </div>
   );
