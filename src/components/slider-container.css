@@ -1,8 +1,10 @@
 .container {
   display: grid;
-  grid-template-areas: ". label_left slide slide slide label_right .";
+  grid-template-areas: "label_left slide label_right";
+  grid-template-columns: 0.5fr 1fr 0.5fr;
   gap: 1rem;
   text-align: center;
+  width: 100%;
 }
 
 .default_box {
