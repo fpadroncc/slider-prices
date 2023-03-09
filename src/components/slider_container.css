@@ -1,0 +1,23 @@
+.container {
+  display: grid;
+  grid-template-areas: ". label_left slide slide slide label_right .";
+  gap: 1rem;
+  text-align: center;
+}
+
+.default_box {
+  border: 5px solid;
+  padding: 1rem;
+}
+
+.label_left {
+  grid-area: label_left;
+}
+
+.label_right {
+  grid-area: label_right;
+}
+
+.slide {
+  grid-area: slide;
+}
