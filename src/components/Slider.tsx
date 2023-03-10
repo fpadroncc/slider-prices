@@ -1,4 +1,5 @@
-import React, { MouseEvent, useEffect, useState } from "react";
+import React, { useState } from "react";
+import useMouseController from "../hooks/useMouseController";
 import "./slider.css";
 
 export default function Slider({
@@ -8,27 +9,14 @@ export default function Slider({
   bulletRight: number;
   bulletLeft: number;
 }) {
-  const [minValue, setMinValue] = useState<Number>(bulletLeft);
-  const [maxValue, setMaxValue] = useState<Number>(bulletRight);
+  const minValue = useMouseController(bulletLeft)
+  //const [minValue, setMinValue] = useState<number>(width);
+  const [maxValue, setMaxValue] = useState<number>(bulletRight);
+
   const [isGrabBullet, setGrabBullet] = useState<boolean>(false);
   const [bulletSelected, setBulletSelected] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (isGrabBullet && bulletSelected !== null) {
-      const bulletId = document.getElementById(bulletSelected);
-      //bulletId?.addEventListener("mousemove", moveObject);
-    }
-    // if (grabBullet !== null) {
-    //   window.addEventListener("mousemove");
-    //   window.addEventListener("mouseup")
-    // }
-    // else{
-    // window.removeEventListener("mousemove");
-    // window.removeEventListener("mouseup");
-    // }
-  });
-
-  const moveObject = ({ event }: { event: MouseEvent }) => {
+  const moveObject = (event: globalThis.MouseEvent) => {
     const container = document.getElementById("containerSlide");
 
     const moveHorizontally = () => {
@@ -37,7 +25,7 @@ export default function Slider({
         const getLineLong = container.clientWidth;
 
         //2º Get Cursor Position on Bullet Line and equal to size
-        const cursorPosition = event.nativeEvent.offsetX;
+        const cursorPosition = event.offsetX;
 
         //3º Math equal widht with position of cursor
         // Bullet line size is equal to 100%
@@ -46,20 +34,20 @@ export default function Slider({
 
         //4º Rest 5% for center the point on the cursor click and setted
         if (bulletSelected === "rightBullet") {
-          setMaxValue(getPorcent - 5);
+          //setMaxValue(getPorcent - 5);
         }
 
         if (bulletSelected === "leftBullet") {
-          setMinValue(getPorcent - 5);
+          //setMinValue(getPorcent - 5);
         }
 
-        const customTable = {
-          sizeLine: getLineLong,
-          cursor: cursorPosition,
-          getPorcent: getPorcent,
-        };
+        // const customTable = {
+        //   sizeLine: getLineLong,
+        //   cursor: cursorPosition,
+        //   getPorcent: getPorcent,
+        // };
 
-        console.table(customTable);
+        // console.table(customTable);
 
         return getPorcent;
       }
@@ -69,30 +57,24 @@ export default function Slider({
   };
 
   return (
-    <div
-      id="containerSlide"
-      className="container_slide"
-      onClick={(e) => moveObject({ event: e })}
-    >
+    <div id="containerSlide" className="container_slide">
       <div id="bulletLine" className="bullet_line">
         <div
           id="leftBullet"
           className="bullet left_bullet"
           style={{ left: `${minValue}%` }}
-          onMouseDown={() => {
-            setGrabBullet(true);
+          onMouseDown={(e) => {
             setBulletSelected("leftBullet");
           }}
         ></div>
-        <div
+        {/* <div
           id="rightBullet"
           className="bullet right_bullet"
           style={{ left: `${maxValue}%` }}
           onMouseDown={() => {
-            setGrabBullet(true);
             setBulletSelected("rightBullet");
           }}
-        ></div>
+        ></div> */}
       </div>
     </div>
   );
