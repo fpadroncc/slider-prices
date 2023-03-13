@@ -39,6 +39,8 @@ const useMouseController = (
 
   const handleMouseMove = useCallback(
     (e: globalThis.MouseEvent) => {
+      document.body.style.cursor = "grabbing";
+
       if (!dragging) {
         return;
       }
@@ -64,7 +66,7 @@ const useMouseController = (
     event: globalThis.MouseEvent,
     currentWidth: number | null
   ) => {
-    if (currentWidth) {
+    if (currentWidth !== null) {
       // 1º Get Cursor Position on Bullet Line and equal to size
       const cursorPosition = event.clientX;
 
@@ -82,17 +84,43 @@ const useMouseController = (
     return currentWidth;
   };
 
+  const getLimitWithOtherBullet = (result: number | null, side: TBullet) => {
+    if (
+      side === "RIGH_BULLET" &&
+      result !== null &&
+      currentLeftWidth !== null
+    ) {
+      const compareWithLeft =
+        result >= currentLeftWidth ? result : currentLeftWidth;
+      return compareWithLeft;
+    }
+
+    if (
+      side === "LEFT_BULLET" &&
+      result !== null &&
+      currentRightWidth !== null
+    ) {
+      const compareWithRight =
+        result <= currentRightWidth ? result : currentRightWidth;
+      return compareWithRight;
+    }
+  };
+
   const moveHorizontally = (event: globalThis.MouseEvent) => {
     if (bulletSelected === "RIGH_BULLET") {
-      console.log("RIGH_BULLET");
       const result = getResult(event, currentRightWidth);
-      setRightBullet(result);
+      const limit = getLimitWithOtherBullet(result, "RIGH_BULLET");
+      if (limit !== undefined) {
+        setRightBullet(limit);
+      }
     }
 
     if (bulletSelected === "LEFT_BULLET") {
-      console.log("LEFT_BULLET");
       const result = getResult(event, currentLeftWidth);
-      setLeftBullet(result);
+      const limit = getLimitWithOtherBullet(result, "LEFT_BULLET");
+      if (limit !== undefined) {
+        setLeftBullet(limit);
+      }
     }
   };
 
