@@ -11,8 +11,8 @@ export default function Slider({
 }) {
   const [bulletSelected, setBulletSelected] = useState<TBullet>(null);
   const controlValue = useMouseController(
-    100,
-    "containerSlide",
+    bulletRight,
+    bulletLeft,
     bulletSelected
   );
 
@@ -22,19 +22,23 @@ export default function Slider({
         <div
           id="leftBullet"
           className="bullet left_bullet"
-          style={{ left: `${controlValue}%` }}
+          style={{
+            left: `${controlValue.leftBullet}%`,
+          }}
           onMouseDown={(e) => {
             setBulletSelected("LEFT_BULLET");
           }}
         ></div>
-        {/* <div
+        <div
           id="rightBullet"
           className="bullet right_bullet"
-          style={{ left: `${controlValue}%` }}
+          style={{
+            left: `${controlValue.rightBullet}%`,
+          }}
           onMouseDown={() => {
             setBulletSelected("RIGH_BULLET");
           }}
-        ></div> */}
+        ></div>
       </div>
     </div>
   );
