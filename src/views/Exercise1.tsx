@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import SliderContainer from "../components/SliderContainer";
+import Slider from "../components/Slider";
 
 export default function Exercise1() {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ export default function Exercise1() {
         <button style={{backgroundColor: 'red'}} onClick={() => navigate(-1)}>ComeBack</button>
       </div>
 
-      <SliderContainer />
+      <Slider />
     </div>
   );
 }

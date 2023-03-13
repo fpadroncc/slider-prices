@@ -31,7 +31,7 @@ const useMouseController = (
   }, []);
 
   const handleMouseUp = useCallback(() => {
-    document.body.style.cursor = "auto";
+    document.body.style.cursor = "grab";
     setDragging(false);
     setCurrentRightWidth(rightBullet);
     setCurrentLeftWidth(leftBullet);
@@ -39,12 +39,11 @@ const useMouseController = (
 
   const handleMouseMove = useCallback(
     (e: globalThis.MouseEvent) => {
-      document.body.style.cursor = "grabbing";
-
       if (!dragging) {
         return;
       }
-
+      
+      document.body.style.cursor = "grabbing";
       moveHorizontally(e);
     },
     [currentRightWidth, currentLeftWidth, dragging]
@@ -85,6 +84,7 @@ const useMouseController = (
   };
 
   const getLimitWithOtherBullet = (result: number | null, side: TBullet) => {
+    // 4º Compare one bullet position with another and can't cross over
     if (
       side === "RIGH_BULLET" &&
       result !== null &&
